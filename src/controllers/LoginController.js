@@ -1,6 +1,11 @@
+const passport = require("passport");
 const Controller = require("./Controller");
 
 class LoginController extends Controller {
+  constructor() {
+    super();
+  }
+
   path = "/auth";
 
   routes = [
@@ -10,10 +15,29 @@ class LoginController extends Controller {
       handler: this.loadLoginView,
       localMiddlewares: [],
     },
+
+    {
+      path: "/loginUser",
+      method: "POST",
+      handler: this.login,
+      localMiddlewares: [
+        passport.authenticate("local", {
+          failureRedirect: "/auth/login",
+        }),
+      ],
+    },
   ];
 
   loadLoginView(req, res) {
-    res.render("pages/auth/login");
+    if (req.isAuthenticated()) {
+      res.redirect("/");
+    } else {
+      res.render("pages/auth/login", { user: null, auth: false });
+    }
+  }
+
+  login(req, res) {
+    res.redirect("/");
   }
 }
 

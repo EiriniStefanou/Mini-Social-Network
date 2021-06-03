@@ -1,4 +1,4 @@
-const express = require("express");
+const Post = require("../models/Post");
 const Controller = require("./Controller");
 
 class WelcomeController extends Controller {
@@ -17,13 +17,17 @@ class WelcomeController extends Controller {
     },
   ];
 
-  /**
-   *
-   * @param {express.Request} req
-   * @param {express.Response} res
-   */
-  handleWelcomePage(req, res) {
-    res.render("pages/welcome");
+  async handleWelcomePage(req, res) {
+    if (req.isAuthenticated()) {
+      const posts = await Post.findAll();
+      res.render("pages/welcome", {
+        user: req.user,
+        posts: posts,
+        auth: req.isAuthenticated(),
+      });
+    } else {
+      res.redirect("/auth/login");
+    }
   }
 }
 

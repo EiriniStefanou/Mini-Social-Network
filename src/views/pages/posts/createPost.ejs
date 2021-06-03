@@ -1,34 +1,35 @@
 <div class="flex justify-center flex-col items-center">
-  <h1 class="my-4">Login</h1>
+  <h1 class="my-4">Create Post</h1>
   <form
     method="POST"
-    action="/auth/loginUser"
+    action="/createPost"
     class="w-full sm:max-w-md bg-white rounded shadow p-2"
   >
     <div>
-      <label class="my-2 block">Email</label>
+      <label class="my-2 block">Title</label>
       <input
-        type="email"
-        name="email"
-        placeholder="Email"
+        required
+        type="text"
+        name="title"
+        placeholder="Title"
         class="bg-gray-200 p-2 rounded w-full"
       />
     </div>
 
     <div>
-      <label class="my-2 block">Password</label>
-      <input
-        type="password"
-        name="password"
-        placeholder="Password"
+      <label class="my-2 block">Description</label>
+      <textarea
+        required
+        type="text"
+        name="description"
+        placeholder="Description"
+        rows="10"
+        cols="10"
         class="bg-gray-200 p-2 rounded w-full"
-      />
+      ></textarea>
     </div>
 
-    <div class="flex items-center justify-between my-2">
-      <a href="/auth/register" class="text-blue-600 underline text-sm"
-        >Register</a
-      >
+    <div class="flex items-center justify-end mb-2 mt-6">
       <button
         type="submit"
         class="
@@ -41,7 +42,7 @@
           text-white
         "
       >
-        Login
+        Create Post
       </button>
     </div>
   </form>

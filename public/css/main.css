@@ -31177,14 +31177,8 @@ video {
 
 body {
   font-size: 14px;
-}
-
-a {
-  transition: opacity 300ms ease-in-out;
-}
-
-a:hover {
-  opacity: 0.5;
+  text-rendering: optimizeLegibility;
+  font-family: DIN, Helvetica Neue, Helvetica, Arial, sans-serif;
 }
 
 @media (min-width: 640px) {

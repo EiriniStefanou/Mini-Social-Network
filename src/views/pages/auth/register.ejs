@@ -1,16 +1,40 @@
 <div class="flex justify-center flex-col items-center">
-  <h1 class="my-4">Login</h1>
+  <h1 class="my-4">Register</h1>
   <form
     method="POST"
-    action="/auth/loginUser"
+    action="/auth/register"
     class="w-full sm:max-w-md bg-white rounded shadow p-2"
   >
     <div>
       <label class="my-2 block">Email</label>
       <input
+        required
         type="email"
         name="email"
         placeholder="Email"
+        autocomplete="new-email"
+        class="bg-gray-200 p-2 rounded w-full"
+      />
+    </div>
+
+    <div>
+      <label class="my-2 block">Name</label>
+      <input
+        required
+        type="text"
+        name="name"
+        placeholder="Name"
+        class="bg-gray-200 p-2 rounded w-full"
+      />
+    </div>
+
+    <div>
+      <label class="my-2 block">Surname</label>
+      <input
+        required
+        type="text"
+        name="surname"
+        placeholder="Surname"
         class="bg-gray-200 p-2 rounded w-full"
       />
     </div>
@@ -18,17 +42,16 @@
     <div>
       <label class="my-2 block">Password</label>
       <input
+        required
         type="password"
         name="password"
         placeholder="Password"
+        autocomplete="new-password"
         class="bg-gray-200 p-2 rounded w-full"
       />
     </div>
 
-    <div class="flex items-center justify-between my-2">
-      <a href="/auth/register" class="text-blue-600 underline text-sm"
-        >Register</a
-      >
+    <div class="flex items-center justify-end mb-2 mt-6">
       <button
         type="submit"
         class="
@@ -41,7 +64,7 @@
           text-white
         "
       >
-        Login
+        Register
       </button>
     </div>
   </form>

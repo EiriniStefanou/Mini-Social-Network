@@ -41,6 +41,15 @@ class Server extends ServerConfiguration {
    *
    */
   initializeServer() {
+    // default route if the provided one doesnt match any
+    this.app.get("*", (req, res) => {
+      if (req.isAuthenticated()) {
+        res.redirect("/");
+      } else {
+        res.redirect("/auth/login");
+      }
+    });
+
     return this.app.listen(this.port, () => {
       console.log(`Listening on port ${this.port}`);
     });

@@ -1,5 +1,6 @@
 const path = require("path");
 const express = require("express");
+const bodyParser = require("body-parser");
 const ejsLayout = require("express-ejs-layouts");
 
 class Configurations {
@@ -16,10 +17,16 @@ class Configurations {
    *
    */
   configure() {
+    this.configureBodyParser();
     this.layoutHandler();
     this.configureStaticAssets();
     this.setDefaultLayout();
     this.setViewEngine();
+  }
+
+  configureBodyParser() {
+    this.app.use(bodyParser.json());
+    this.app.use(bodyParser.urlencoded({ extended: true }));
   }
 
   /**
