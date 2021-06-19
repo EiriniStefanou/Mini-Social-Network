@@ -1,3 +1,4 @@
+const Account = require("../models/Account");
 const User = require("../models/User");
 const Controller = require("./Controller");
 
@@ -24,11 +25,15 @@ class ProfileController extends Controller {
     },
   ];
 
-  getProfile(req, res) {
+  async getProfile(req, res) {
     if (req.isAuthenticated()) {
+      let user = await User.findOne({ where: { accountId: req.user.id } });
+
+      user.email = req.user.email;
+
       res.render("pages/profile", {
         message: null,
-        user: req.user,
+        user,
         auth: true,
       });
     } else {
@@ -38,22 +43,38 @@ class ProfileController extends Controller {
 
   async updateProfile(req, res) {
     if (req.isAuthenticated()) {
-      await User.update(
-        {
-          email: req.body.email,
-          name: req.body.name,
-          surname: req.body.surname,
-        },
-        {
-          where: {
-            id: req.user.id,
+      const { email, name, surname } = req.body;
+
+      if (email) {
+        await Account.update(
+          {
+            email,
           },
-        }
-      );
+          {
+            where: {
+              id: req.user.id,
+            },
+          }
+        );
+      }
+
+      if (name || surname) {
+        await User.update(
+          {
+            name,
+            surname,
+          },
+          {
+            where: {
+              accountId: req.user.id,
+            },
+          }
+        );
+      }
 
       const user = await User.findOne({
         where: {
-          id: req.user.id,
+          accountId: req.user.id,
         },
       });
 

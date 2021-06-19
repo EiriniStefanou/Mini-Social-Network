@@ -12,7 +12,7 @@ const PostController = require("./controllers/PostController");
 const RegisterController = require("./controllers/RegisterController");
 const ProfileController = require("./controllers/ProfileController");
 
-const User = require("./models/User");
+const Account = require("./models/Account");
 
 const controllers = [
   new WelcomeController(),
@@ -44,7 +44,7 @@ passport.use(
       passwordField: "password",
     },
     async function (username, password, done) {
-      const user = await User.findOne({
+      const user = await Account.findOne({
         where: {
           email: username,
         },
@@ -66,7 +66,7 @@ passport.serializeUser(function (user, cb) {
 });
 
 passport.deserializeUser(async function (id, cb) {
-  const user = await User.findOne({
+  const user = await Account.findOne({
     where: {
       id: id,
     },

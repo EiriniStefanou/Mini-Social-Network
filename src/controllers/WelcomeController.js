@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const User = require("../models/User");
 const Controller = require("./Controller");
 
 class WelcomeController extends Controller {
@@ -20,8 +21,11 @@ class WelcomeController extends Controller {
   async handleWelcomePage(req, res) {
     if (req.isAuthenticated()) {
       const posts = await Post.findAll();
+
+      const user = await User.findOne({ where: { accountId: req.user.id } });
+
       res.render("pages/welcome", {
-        user: req.user,
+        user,
         posts: posts,
         auth: req.isAuthenticated(),
       });
