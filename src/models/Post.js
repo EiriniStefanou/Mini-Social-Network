@@ -12,6 +12,14 @@ Post.init(
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
     },
+    userId: {
+      allowNull: false,
+      references: {
+        key: "id",
+        model: "User",
+      },
+      type: Sequelize.DataTypes.UUID,
+    },
     title: {
       allowNull: false,
       type: Sequelize.DataTypes.STRING,

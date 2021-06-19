@@ -41,6 +41,8 @@ Account.init(
   }
 );
 
+module.exports = Account;
+
 Account.hasOne(User, {
   foreignKey: {
     name: "accountId",
@@ -48,6 +50,4 @@ Account.hasOne(User, {
   },
 });
 
-User.belongsTo(Account, { foreignKey: "manufacturerId" });
-
-module.exports = Account;
+User.belongsTo(Account, { foreignKey: "accountId" });

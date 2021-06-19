@@ -3,6 +3,7 @@ const User = require("../models/User");
 const Controller = require("./Controller");
 
 const hashPassword = require("../helpers/hashPassword");
+const Account = require("../models/Account");
 
 class RegisterController extends Controller {
   constructor() {
@@ -38,11 +39,21 @@ class RegisterController extends Controller {
   async register(req, res) {
     const { email, name, surname, password } = req.body;
 
-    const user = await User.create({
+    // Create the users account
+    await Account.create({
       email,
+      passwordHash: await hashPassword(password),
+    });
+
+    // Get the account that was created
+    const account = await Account.findOne({ where: { email } });
+
+    // Create the user model with the acccount
+    const user = await User.create({
       name,
       surname,
-      passwordHash: await hashPassword(password),
+      role: "user",
+      accountId: account.id,
     });
 
     if (user) {
