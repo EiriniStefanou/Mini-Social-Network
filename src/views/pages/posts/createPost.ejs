@@ -1,23 +1,23 @@
 <div class="flex justify-center flex-col items-center">
-  <h1 class="my-4">Create Post</h1>
+  <h1 class="my-4 font-bold text-xl text-gray-700">Create Post</h1>
   <form
     method="POST"
     action="/createPost"
     class="w-full sm:max-w-5xl bg-white rounded shadow p-2"
   >
     <div>
-      <label class="my-2 block">Title</label>
+      <label class="my-2 block font-bold text-lg text-gray-700">Title</label>
       <input
         required
         type="text"
         name="title"
         placeholder="Title"
-        class="bg-gray-200 p-2 rounded w-full"
+        class="bg-gray-200 p-2 rounded w-full focus:outline-none"
       />
     </div>
 
     <div>
-      <label class="my-2 block">Description</label>
+      <label class="my-2 block font-bold text-lg text-gray-700">Description</label>
       <textarea
         required
         type="text"
@@ -25,7 +25,7 @@
         placeholder="Description"
         rows="30"
         cols="10"
-        class="bg-gray-200 p-2 rounded w-full"
+        class="bg-gray-200 p-2 rounded w-full  focus:outline-none"
       ></textarea>
     </div>
 

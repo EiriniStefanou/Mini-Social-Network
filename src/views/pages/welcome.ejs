@@ -1,7 +1,7 @@
 <div class="flex items-center justify-center md:mx-10 flex-wrap">
   <% if (posts && posts.length > 0) { for(var i = 0; i < posts.length; i++) { %>
 
-  <a href="/showPost/<%= posts[i].id %>" class="w-full md:flex-1 my-2 mx-0 md:mx-1 min-h-full h-52 md:my-0 bg-white rounded px-4 py-3 overflow-y-auto">
+  <a href="/showPost/<%= posts[i].id %>" class="w-full md:flex-1 my-2 mx-0 md:mx-1 min-h-full h-52 md:my-0 bg-white rounded px-4 py-3 overflow-y-auto hover:opacity-50 duration-300">
     <p class="my-2">
       Published By -
       <span
