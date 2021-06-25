@@ -39,7 +39,7 @@ class RegisterController extends Controller {
   async register(req, res) {
     const { email, name, surname, password } = req.body;
 
-    // Create the users account
+    // Create the user's account
     await Account.create({
       email,
       passwordHash: await hashPassword(password),
@@ -57,7 +57,7 @@ class RegisterController extends Controller {
     });
 
     if (user) {
-      res.render("pages/auth/login");
+      res.redirect("/login");
     } else {
       res.redirect("/auth/register");
     }

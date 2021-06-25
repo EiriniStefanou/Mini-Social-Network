@@ -44,9 +44,6 @@ User.init(
     },
   },
   {
-    defaultScope: {
-      attributes: { exclude: ["passwordHash"] },
-    },
     sequelize: connection,
     modelName: "User",
     timestamps: true,

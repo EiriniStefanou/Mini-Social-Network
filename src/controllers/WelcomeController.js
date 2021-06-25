@@ -20,14 +20,21 @@ class WelcomeController extends Controller {
 
   async handleWelcomePage(req, res) {
     if (req.isAuthenticated()) {
-      const posts = await Post.findAll();
+      const posts = await Post.findAll({
+        include: [
+          {
+            model: User,
+            as: "User",
+          },
+        ],
+      });
 
       const user = await User.findOne({ where: { accountId: req.user.id } });
 
       res.render("pages/welcome", {
         user,
-        posts: posts,
-        auth: req.isAuthenticated(),
+        posts,
+        auth: true,
       });
     } else {
       res.redirect("/auth/login");

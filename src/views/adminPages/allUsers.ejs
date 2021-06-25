@@ -1,0 +1,36 @@
+<div class="container w-full md:w-9/12 md:mx-auto">
+    <div class="my-2 pb-4">
+      <a href="/overview/dashboard" class="bg-white shadow rounded px-4 py-2 mr-4 hover:opacity-50 duration-300">Posts</a>
+      <a href="/overview/allUsers" class="bg-white shadow rounded px-4 py-2 mr-4 hover:opacity-50 duration-300">Users</a>
+    </div>
+      <h1 class="font-bold text-lg my-2">All Users (<%= users.length %>)</h1>
+    
+      <table class="w-full bg-white p-2 rounded">
+        <thead class="bg-gray-50">
+          <th class="py-5">Email</th>
+          <th class="py-5">Name</th>
+          <th class="py-5">Surname</th>
+          <th class="py-5">Role</th>
+          <th class="py-5">Actions</th>
+        </thead>
+        <tbody>
+          <% if (users && users.length > 0) { for(var i = 0; i < users.length; i++)
+          { %>
+          <tr class="text-center border-b border-t border-gray-300">
+            <td class="py-4"><%= users[i].Account.email %></td>
+            <td class="py-4"><%= users[i].name %></td>
+            <td class="py-4"><%= users[i].surname %></td>
+            <td class="py-4"><%= users[i].role %></td>
+            <td>
+              <form
+                method="POST"
+                action="/admin/deleteUser/<%= users[i].Account.id %>/<%= users[i].id %>/" class="inline-block ">
+                <button class=" bg-red-600 hover:bg-red-700 text-xs text-white cursor-pointer rounded px-4 py-2 duration-300" type="submit">Delete</button>
+                </form>
+            </td>
+          </tr>
+          <% }} %>
+        </tbody>
+      </table>
+    </div>
+    

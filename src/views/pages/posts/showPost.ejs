@@ -1,0 +1,22 @@
+<div class="md:container md:mx-auto mx-4">
+  <div class="bg-white rounded shadow px-4 py-2">
+    <h1 class="font-bold text-xl text-center py-4">
+      <%= post.title %>
+    </h1>
+
+    <p class="mt-4 mb-8">
+      Published By -
+      <span
+        class="capitalize font-bold hover:opacity-50 cursor-pointer duration-300 text-blue-600">
+        <%= post.User.name %>
+      </span
+      >
+    </p>
+
+    <p class="px-4 text-gray-700 font-bold">
+      <%= post.description %>
+    </p>
+
+  </div>
+      
+</div>

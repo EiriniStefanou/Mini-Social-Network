@@ -11,6 +11,11 @@ const LoginController = require("./controllers/LoginController");
 const PostController = require("./controllers/PostController");
 const RegisterController = require("./controllers/RegisterController");
 const ProfileController = require("./controllers/ProfileController");
+const LogoutController = require("./controllers/LogoutController");
+const ProfilePostsController = require("./controllers/ProfilePostsController");
+const DashboardController = require("./controllers/Admin/DashboardController");
+const UserController = require("./controllers/Admin/UserController");
+const SearchController = require("./controllers/SearchController");
 
 const Account = require("./models/Account");
 
@@ -20,11 +25,16 @@ const controllers = [
   new PostController(),
   new RegisterController(),
   new ProfileController(),
+  new LogoutController(),
+  new ProfilePostsController(),
+  new SearchController(),
+  // Admin
+  new DashboardController(),
+  new UserController(),
 ];
 
 app.use(
   session({
-    //secret: process.env.SECRET,
     secret: "some secret",
     resave: true,
     saveUninitialized: false,
@@ -82,7 +92,6 @@ passport.deserializeUser(async function (id, cb) {
 });
 
 Promise.resolve().then(() => {
-  // try to connect to db
   server.loadControllers(controllers);
   server.initializeServer();
 });
