@@ -4,34 +4,9 @@ const session = require("express-session");
 const ServerContainer = require("./server");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const server = new ServerContainer(app, 7000);
-
-const WelcomeController = require("./controllers/WelcomeController");
-const LoginController = require("./controllers/LoginController");
-const PostController = require("./controllers/PostController");
-const RegisterController = require("./controllers/RegisterController");
-const ProfileController = require("./controllers/ProfileController");
-const LogoutController = require("./controllers/LogoutController");
-const ProfilePostsController = require("./controllers/ProfilePostsController");
-const DashboardController = require("./controllers/Admin/DashboardController");
-const UserController = require("./controllers/Admin/UserController");
-const SearchController = require("./controllers/SearchController");
-
+const controllers = require("./controllers");
 const Account = require("./models/Account");
-
-const controllers = [
-  new WelcomeController(),
-  new LoginController(),
-  new PostController(),
-  new RegisterController(),
-  new ProfileController(),
-  new LogoutController(),
-  new ProfilePostsController(),
-  new SearchController(),
-  // Admin
-  new DashboardController(),
-  new UserController(),
-];
+const server = new ServerContainer(app, 7000);
 
 app.use(
   session({

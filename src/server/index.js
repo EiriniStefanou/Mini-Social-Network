@@ -3,11 +3,6 @@ const express = require("express");
 const ServerConfiguration = require("./configurations");
 
 class Server extends ServerConfiguration {
-  /**
-   *
-   * @param {express.Application} app
-   * @param {number} port
-   */
   constructor(app, port) {
     super(app);
     this.app = app;
@@ -17,31 +12,17 @@ class Server extends ServerConfiguration {
     this.globalMiddlewares();
   }
 
-  /**
-   * Setup application wide middlewares.
-   *
-   */
   globalMiddlewares() {
     this.app.use(helmet());
   }
 
-  /**
-   * Load application controllers.
-   *
-   * @param {array} controllers
-   */
   loadControllers(controllers) {
     controllers.forEach((controller) => {
       this.app.use(controller.path, controller.setupRoutes());
     });
   }
 
-  /**
-   * Initialize the server.
-   *
-   */
   initializeServer() {
-    // default route if the provided one doesnt match any
     this.app.get("*", (req, res) => {
       if (req.isAuthenticated()) {
         res.redirect("/");
