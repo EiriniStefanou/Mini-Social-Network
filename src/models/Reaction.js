@@ -1,11 +1,10 @@
 const { Sequelize, Model } = require("sequelize");
 
 const connection = require("../database/connection");
-const User = require("./User");
 
-class Account extends Model {}
+class Reaction extends Model {}
 
-Account.init(
+Reaction.init(
   {
     id: {
       allowNull: false,
@@ -13,14 +12,21 @@ Account.init(
       type: Sequelize.UUID,
       defaultValue: Sequelize.UUIDV4,
     },
-    email: {
+    userId: {
       allowNull: false,
-      type: Sequelize.DataTypes.STRING,
-      unique: true,
+      references: {
+        key: "id",
+        model: "User",
+      },
+      type: Sequelize.DataTypes.UUID,
     },
-    passwordHash: {
+    postId: {
       allowNull: false,
-      type: Sequelize.DataTypes.CHAR(64),
+      references: {
+        key: "id",
+        model: "User",
+      },
+      type: Sequelize.DataTypes.UUID,
     },
     createdAt: {
       allowNull: false,
@@ -32,13 +38,10 @@ Account.init(
     },
   },
   {
-    defaultScope: {
-      attributes: { exclude: ["passwordHash"] },
-    },
     sequelize: connection,
-    modelName: "Account",
+    modelName: "Reaction",
     timestamps: true,
   }
 );
 
-module.exports = Account;
+module.exports = Reaction;

@@ -1,44 +1,31 @@
 <div class="flex items-center justify-center md:mx-10 flex-wrap">
-  <% if (posts && posts.length > 0) { for(var i = 0; i < posts.length; i++) { %>
+  <% if (posts && posts.length > 0) { posts.forEach(post => { %>
 
-  <a href="/showPost/<%= posts[i].id %>" class="w-full md:flex-1 my-2 mx-0 md:mx-1 min-h-full h-52 md:my-0 bg-white rounded px-4 py-3 overflow-y-auto hover:opacity-50 duration-300">
+  <div class="w-full flex flex-col justify-between md:w-3/12 my-2 mx-0 md:mx-1 min-h-full h-72 bg-white rounded px-4 py-3 overflow-y-auto">
+    
+
+     <a href="/showPost/<%= post.id %>" class="text-gray-700 capitalize hover:text-blue-500 duration-300">
+      <h1 class="text-center text-xl my-2 py-4 font-bold">
+        <%= post.title %>
+      </h1>
+    </a>
+
     <p class="my-2">
-      Published By -
-      <span
-        class="
-          capitalize
-          font-bold
-          hover:opacity-50
-          cursor-pointer
-          duration-300
-        "
-        ><%= posts[i].User.name %></span
-      >
+      <span class="capitalize font-bold hover:opacity-50 cursor-pointer duration-300"><%= post.User.name %></span>
     </p>
-
-    <h1 class="text-center text-lg my-2 py-4 font-bold">
-      <%= posts[i].title %>
-    </h1>
 
     <p class="px-10 my-4 text-gray-500 font-bold">
-      <%= posts[i].description.slice(0, 100) %>
+      <%= post.description.slice(0, 100) %>
     </p>
 
-    <div>
-      Liked by -
-      <span
-        class="
-          capitalize
-          text-blue-600
-          font-bold
-          hover:opacity-50
-          cursor-pointer
-          duration-300
-        "
-        ><%= posts[i].User.name %></span
-      >
-    </div>
-  </a>
+    <div class="flex items-center pt-6 pb-4">
+      
+      <%- include('./partial/Reactions', {post: post, page: 'welcome'}) %>
 
-  <% }} %>
+      <%- include('./partial/UserReactionList', {post: post}) %>
+        
+    </div>
+  </div>
+
+  <% })} %>
 </div>

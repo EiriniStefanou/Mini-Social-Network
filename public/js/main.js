@@ -13,3 +13,15 @@ function dropdownElementHandler() {
 }
 
 dropdownElementHandler();
+
+function userHasLikes(reactions, userId, postId) {
+  let hasLike = false;
+
+  reactions.forEach((element) => {
+    if (element.userId !== userId && element.postId === postId) {
+      hasLike = true;
+    }
+  });
+
+  return hasLike;
+}

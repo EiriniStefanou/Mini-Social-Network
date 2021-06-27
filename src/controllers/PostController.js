@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const Reaction = require("../models/Reaction");
 const User = require("../models/User");
 const Controller = require("./Controller");
 
@@ -89,10 +90,15 @@ class PostController extends Controller {
 
       const post = await Post.findOne({
         where: { id: postId },
-        include: {
-          model: User,
-          as: "User",
-        },
+        include: [
+          {
+            model: User,
+          },
+          {
+            model: Reaction,
+            include: { model: User },
+          },
+        ],
       });
 
       res.render("pages/posts/showPost", { user, post, auth: true });
@@ -150,6 +156,12 @@ class PostController extends Controller {
       });
 
       if (user.name === post.User.name || user.role === "admin") {
+        await Reaction.destroy({
+          where: {
+            postId: postId,
+          },
+        });
+
         await Post.destroy({ where: { id: postId } });
       }
 

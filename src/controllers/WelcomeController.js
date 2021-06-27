@@ -1,4 +1,5 @@
 const Post = require("../models/Post");
+const Reaction = require("../models/Reaction");
 const User = require("../models/User");
 const Controller = require("./Controller");
 
@@ -24,7 +25,14 @@ class WelcomeController extends Controller {
         include: [
           {
             model: User,
-            as: "User",
+          },
+          {
+            model: Reaction,
+            include: [
+              {
+                model: User,
+              },
+            ],
           },
         ],
       });

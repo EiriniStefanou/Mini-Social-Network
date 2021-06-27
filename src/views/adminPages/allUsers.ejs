@@ -14,22 +14,21 @@
           <th class="py-5">Actions</th>
         </thead>
         <tbody>
-          <% if (users && users.length > 0) { for(var i = 0; i < users.length; i++)
-          { %>
+          <% if (users && users.length > 0) { users.forEach(user =>  { %>
           <tr class="text-center border-b border-t border-gray-300">
-            <td class="py-4"><%= users[i].Account.email %></td>
-            <td class="py-4"><%= users[i].name %></td>
-            <td class="py-4"><%= users[i].surname %></td>
-            <td class="py-4"><%= users[i].role %></td>
+            <td class="py-4"><%= user.Account.email %></td>
+            <td class="py-4"><%= user.name %></td>
+            <td class="py-4"><%= user.surname %></td>
+            <td class="py-4"><%= user.role %></td>
             <td>
               <form
                 method="POST"
-                action="/admin/deleteUser/<%= users[i].Account.id %>/<%= users[i].id %>/" class="inline-block ">
+                action="/admin/deleteUser/<%= user.Account.id %>/<%= user.id %>/" class="inline-block ">
                 <button class=" bg-red-600 hover:bg-red-700 text-xs text-white cursor-pointer rounded px-4 py-2 duration-300" type="submit">Delete</button>
                 </form>
             </td>
           </tr>
-          <% }} %>
+          <% })} %>
         </tbody>
       </table>
     </div>

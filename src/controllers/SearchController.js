@@ -1,5 +1,7 @@
 const User = require("../models/User");
 const Post = require("../models/post");
+const Reaction = require("../models/Reaction");
+
 const Controller = require("./Controller");
 
 const sequelize = require("sequelize");
@@ -40,6 +42,10 @@ class SearchController extends Controller {
             [sequelize.Op.substring]: `%${search}%`,
           },
         },
+        include: [
+          { model: User },
+          { model: Reaction, include: { model: User } },
+        ],
       });
 
       res.render("pages/searchResults", {

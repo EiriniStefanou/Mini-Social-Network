@@ -7,33 +7,18 @@
       <th>Actions</th>
     </thead>
     <tbody>
-      <% if (posts && posts.length > 0) { for(var i = 0; i < posts.length; i++)
-      { %>
+      <% if (posts && posts.length > 0) { posts.forEach(post => {  %>
       <tr class="text-center border-b border-t border-gray-300">
-        <td class="py-4"><%= posts[i].title %></td>
+        <td class="py-4"><%= post.title %></td>
         <td>
-          <a
-            href="/updatePost/view/<%= posts[i].id %>"
-            class="
-              bg-yellow-600
-              hover:bg-yellow-700
-              text-white
-              cursor-pointer
-              rounded
-              px-4
-              py-2
-              duration-300
-            "
-            >Edit</a
-          >
-          <form
-            method="POST"
-            action="/deletePost/<%= posts[i].id %>" class="inline-block ">
+          <a href="/updatePost/view/<%= post.id %>"
+            class="bg-yellow-600 hover:bg-yellow-700 text-white cursor-pointer rounded px-4 py-2 duration-300">Edit</a>
+          <form method="POST" action="/deletePost/<%= post.id %>" class="inline-block ">
             <button class=" bg-red-600 hover:bg-red-700 text-xs text-white cursor-pointer rounded px-4 py-2 duration-300" type="submit">Delete</button>
             </form>
         </td>
       </tr>
-      <% }} %>
+      <% })} %>
     </tbody>
   </table>
 </div>

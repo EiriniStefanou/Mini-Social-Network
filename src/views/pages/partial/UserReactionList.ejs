@@ -1,0 +1,11 @@
+<div>
+    <% if (post.Reactions.length > 0) { %>
+      Liked by -
+        <% post.Reactions.forEach(element => { %>
+          <span class=" capitalize text-blue-600 font-bold pl-1 hover:opacity-50 cursor-pointer duration-300">
+            <%= element.User.name %>,
+          </span>
+       <% })} else { %>
+        No Reactions yet
+      <% } %>
+  </div>

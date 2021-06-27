@@ -11,6 +11,7 @@ const ProfileController = require("./ProfileController");
 const LogoutController = require("./LogoutController");
 const ProfilePostsController = require("./ProfilePostsController");
 const SearchController = require("./SearchController");
+const ReactionController = require("./ReactionController");
 
 const controllers = [
   new WelcomeController(),
@@ -21,6 +22,7 @@ const controllers = [
   new LogoutController(),
   new ProfilePostsController(),
   new SearchController(),
+  new ReactionController(),
   // Admin
   new DashboardController(),
   new UserController(),

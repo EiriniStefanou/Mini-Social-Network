@@ -1,6 +1,8 @@
 const { Sequelize, Model } = require("sequelize");
 
 const connection = require("../database/connection");
+const Reaction = require("./Reaction");
+const User = require("./User");
 
 class Post extends Model {}
 
@@ -46,3 +48,19 @@ Post.init(
 );
 
 module.exports = Post;
+
+User.hasMany(Post, {
+  foreignKey: {
+    name: "userId",
+    allowNull: false,
+  },
+});
+
+Post.belongsTo(User, { foreignKey: "userId" });
+
+Post.hasMany(Reaction, {
+  foreignKey: {
+    name: "postId",
+    allowNull: false,
+  },
+});

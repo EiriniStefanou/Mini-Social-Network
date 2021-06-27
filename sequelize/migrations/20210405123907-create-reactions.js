@@ -28,6 +28,14 @@ module.exports = {
           },
           type: Sequelize.DataTypes.UUID,
         },
+        createdAt: {
+          allowNull: false,
+          type: Sequelize.DataTypes.DATE,
+        },
+        updatedAt: {
+          allowNull: false,
+          type: Sequelize.DataTypes.DATE,
+        },
       },
       {
         charset: "utf8",
