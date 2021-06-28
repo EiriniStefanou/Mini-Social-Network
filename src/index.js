@@ -40,7 +40,7 @@ passport.use(
       }
 
       if (!user) {
-        done(null, false);
+        done(null, false, { errors: [{ message: "user not found" }] });
       }
     }
   )

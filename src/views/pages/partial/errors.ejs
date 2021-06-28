@@ -1,0 +1,6 @@
+<% if (errors && errors.length > 0) {%>
+    <% errors.forEach(error => { %>
+      <h1 class="my-2 p-1">
+          <span class="bg-red-600 text-white p-2 rounded"><%= error %></span>
+      </h1>
+<% })} %>

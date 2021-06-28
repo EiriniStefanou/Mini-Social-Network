@@ -23,6 +23,7 @@ class LoginController extends Controller {
       localMiddlewares: [
         passport.authenticate("local", {
           failureRedirect: "/auth/login",
+          failWithError: true,
         }),
       ],
     },

@@ -32,21 +32,34 @@ class RegisterController extends Controller {
     if (req.isAuthenticated()) {
       res.redirect("/");
     } else {
-      res.render("pages/auth/register", { user: null, auth: false });
+      res.render("pages/auth/register", {
+        user: null,
+        auth: false,
+        errors: [],
+      });
     }
   }
 
   async register(req, res) {
     const { email, name, surname, password } = req.body;
+    let errors = [];
 
     // Create the user's account
     await Account.create({
       email,
       passwordHash: await hashPassword(password),
+    }).catch((err) => {
+      err.errors.forEach((error) => {
+        errors.push(error.message);
+      });
     });
 
     // Get the account that was created
-    const account = await Account.findOne({ where: { email } });
+    const account = await Account.findOne({ where: { email } }).catch((err) => {
+      err.errors.forEach((error) => {
+        errors.push(error.message);
+      });
+    });
 
     // Create the user model with the acccount
     const user = await User.create({
@@ -54,10 +67,24 @@ class RegisterController extends Controller {
       surname,
       role: "user",
       accountId: account.id,
+    }).catch((err) => {
+      err.errors.forEach((error) => {
+        errors.push(error.message);
+      });
     });
 
+    if (errors.length > 0) {
+      res.render("pages/auth/register", {
+        user: null,
+        auth: false,
+        errors: errors,
+      });
+
+      return;
+    }
+
     if (user) {
-      res.redirect("/login");
+      res.redirect("/login", { message: null });
     } else {
       res.redirect("/auth/register");
     }
