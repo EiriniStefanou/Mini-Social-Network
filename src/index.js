@@ -7,6 +7,8 @@ const LocalStrategy = require("passport-local").Strategy;
 const controllers = require("./controllers");
 const Account = require("./models/Account");
 const server = new ServerContainer(app, 7000);
+const bcrypt = require("bcryptjs");
+const e = require("express");
 
 app.use(
   session({
@@ -29,18 +31,28 @@ passport.use(
       passwordField: "password",
     },
     async function (username, password, done) {
-      const user = await Account.findOne({
+      const account = await Account.scope({
+        defaultScope: {
+          attributes: { include: ["passwordHash"] },
+        },
+      }).findOne({
         where: {
           email: username,
         },
       });
 
-      if (user) {
-        done(null, user);
-      }
+      let compareStatus = await bcrypt.compare(password, account.passwordHash);
 
-      if (!user) {
-        done(null, false, { errors: [{ message: "user not found" }] });
+      if (compareStatus) {
+        const user = await Account.findOne({
+          where: {
+            email: username,
+          },
+        });
+
+        done(null, user);
+      } else {
+        done(null, false);
       }
     }
   )
