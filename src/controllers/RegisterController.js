@@ -43,6 +43,24 @@ class RegisterController extends Controller {
   async register(req, res) {
     const { email, name, surname, password } = req.body;
     let errors = [];
+    const emailExists = await Account.findOne({
+      where: {
+        email,
+      },
+    });
+
+    const usernameExists = await User.findOne({
+      where: {
+        name,
+      },
+    });
+
+    if (emailExists || usernameExists) {
+      console.log(emailExists, usernameExists);
+      res.redirect("/auth/register");
+
+      return;
+    }
 
     // Create the user's account
     await Account.create({
@@ -84,7 +102,7 @@ class RegisterController extends Controller {
     }
 
     if (user) {
-      res.redirect("/login", { message: null });
+      res.redirect("/login");
     } else {
       res.redirect("/auth/register");
     }
